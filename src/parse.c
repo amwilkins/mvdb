@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "common.h"
 #include "parse.h"
 
 Command parseCommand(char *source) {

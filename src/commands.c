@@ -8,6 +8,7 @@ FILE *createAndOpen(char *path) {
 
   // if file does not exist, create it
   if (!file) {
+    printf("Initializing new data file\n");
     FILE *file = fopen(path, "w");
     fclose(file);
     file = fopen(path, "r+");
@@ -57,7 +58,6 @@ void initializeDatabase(char *path, int argc, char **argv) {
     exit(1);
   }
 
-  printf("Initializing new data file\n");
   // write initial data to file
   FILE *file;
   file = fopen(path, "w");
@@ -71,12 +71,12 @@ void initializeDatabase(char *path, int argc, char **argv) {
 
 void showDatabase(char *path, int argc, char *argv[]) {
   char *source = readFile(argv[1]);
-  FILE *file = fopen(path, "r");
+  // FILE *file = fopen(path, "a+");
   printf("%s\n", source);
   free(source);
 }
 
-void insertDatabase(char *path, int argc, char *argv[]) {
+void insertRow(char *path, int argc, char *argv[]) {
   char *source = readFile(argv[1]);
   FILE *file = fopen(path, "a+");
   char c;
@@ -96,4 +96,30 @@ void insertDatabase(char *path, int argc, char *argv[]) {
     fprintf(file, "%s ", argv[i]);
   }
   fclose(file);
+}
+
+void print_line(const char *filename, int line_number) {
+  FILE *file = fopen(filename, "r");
+  if (file == NULL) {
+    fprintf(stderr, "Failed to open file\n");
+    exit(1);
+  }
+
+  char buffer[256];
+  int count = 1;
+  while (fgets(buffer, sizeof(buffer), file) != NULL) {
+    if (count == line_number + 2) {
+      printf("%s\n", buffer);
+      break;
+    }
+    count++;
+  }
+
+  fclose(file);
+}
+
+// ./ db <datafile> RETURN <index>
+void returnRow(char *path, int argc, char *argv[]) {
+  int search_index = atoi(argv[3]);
+  print_line(argv[1], search_index);
 }

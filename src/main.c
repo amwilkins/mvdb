@@ -2,6 +2,7 @@
 #include <stdlib.h> // for malloc, exit
 
 #include "commands.h"
+#include "common.h"
 #include "parse.h"
 
 int main(int argc, char *argv[]) {
@@ -14,6 +15,7 @@ int main(int argc, char *argv[]) {
     Command command = parseCommand(argv[2]);
 
     switch (command) {
+    // Database commands
     case COMMAND_INIT:
       initializeDatabase(database, argc, argv);
       break;
@@ -21,20 +23,21 @@ int main(int argc, char *argv[]) {
       showDatabase(database, argc, argv);
       break;
     case COMMAND_DELETE:
-      printf("Delete item\n");
+      printf("Delete Database\n");
       break;
+    // Row commands
     case COMMAND_REMOVE:
       printf("Remove item\n");
       break;
     case COMMAND_INSERT:
-      printf("Insert into database\n");
-      insertDatabase(database, argc, argv);
+      insertRow(database, argc, argv);
       break;
     case COMMAND_SELECT:
       printf("Select a row\n");
       break;
     case COMMAND_RETURN:
-      printf("Return a value\n");
+      printf("RETURN %s, index %s\n", argv[1], argv[3]);
+      returnRow(database, argc, argv);
       break;
     case COMMAND_UNKNOWN:
       printf("ERROR: Command Unknown\n");
