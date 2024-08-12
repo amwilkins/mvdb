@@ -17,10 +17,4 @@ typedef enum {
   COMMAND_UNKNOWN
 } Command;
 
-typedef struct {
-  Command command;
-  // somehow the args need to be here
-
-} Tuple;
-
 #endif

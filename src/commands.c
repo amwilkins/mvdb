@@ -69,9 +69,13 @@ void initializeDatabase(char *path, int argc, char **argv) {
   free(source);
 }
 
-void showDatabase(char *path, int argc, char *argv[]) {
+void showDatabase(int argc, char *argv[]) {
+  if (argc < 2) {
+    printf("ERROR: Please supply data file\n");
+    exit(1);
+  }
+
   char *source = readFile(argv[1]);
-  // FILE *file = fopen(path, "a+");
   printf("%s\n", source);
   free(source);
 }

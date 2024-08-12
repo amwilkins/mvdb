@@ -1,15 +1,12 @@
-#include <stdio.h>  // for printf
-#include <stdlib.h> // for malloc, exit
-
 #include "commands.h"
 #include "common.h"
 #include "parse.h"
 
-int main(int argc, char *argv[]) {
-
+int main(int argc, char **argv) {
   if (argc < 3) {
     printf("ERROR: Please supply data file and command.\n");
     printf("Format should be: DATABASE COMMAND ...\n");
+    exit(1);
   } else {
     char *database = argv[1];
     Command command = parseCommand(argv[2]);
@@ -20,7 +17,7 @@ int main(int argc, char *argv[]) {
       initializeDatabase(database, argc, argv);
       break;
     case COMMAND_SHOW:
-      showDatabase(database, argc, argv);
+      showDatabase(argc, argv);
       break;
     case COMMAND_DELETE:
       printf("Delete Database\n");
