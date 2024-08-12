@@ -1,11 +1,16 @@
 CC ?= gcc
 BIN := bin/db
+DIR = $(HOME)/$(BIN)
+
+ifeq ($(DEBUG),1)
+   OPTS = -g
+endif
 
 all:
-	$(CC) -o $(BIN) $(wildcard src/*.c)
+	$(CC) $(OPTS) -o $(DIR) $(wildcard src/*.c)
 
 run: all
-	./$(BIN)
+	./$(DIR)
 
 clean:
-	rm $(BIN) | true
+	rm $(DIR) | true
