@@ -6,7 +6,7 @@
 
 // Database Functions
 void initializeDatabase(char *path, int argc, char *argv[]);
-void showDatabase(int argc, char *argv[]);
+void showDatabase(char *path);
 
 // Row Functions
 void insertRow(char *path, int argc, char *argv[]);
